@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Typography
+    Typography,
+    Menu, 
+    MenuItem, 
+    Button 
 } from '@material-ui/core';
 import { withRouter } from "react-router-dom";
 import { colors } from '../../theme'
@@ -48,8 +51,16 @@ const styles = theme => ({
     cursor: 'pointer'
   },
   links: {
-    display: 'flex'
-  },
+      display: 'flex',
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+    },
+    },
+   linksMobile: {
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
+    },
   link: {
     padding: '12px 0px',
     margin: '0px 12px',
@@ -125,10 +136,17 @@ class Header extends Component {
 
     this.state = {
       account: store.getStore('account'),
-      modalOpen: false
+        modalOpen: false,
+        anchorEl: null,
     }
   }
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+};
 
+ handleClose = () => {
+    this.setState({ anchorEl: null });
+ };
   componentWillMount() {
     emitter.on(CONNECTION_CONNECTED, this.connectionConnected);
     emitter.on(CONNECTION_DISCONNECTED, this.connectionDisconnected);
@@ -181,7 +199,48 @@ class Header extends Component {
             { this.renderLink('zap') }
             { this.renderLink('cover') }
             { this.renderLink('stats') }
-          </div>
+                </div>
+                <div className={classes.linksMobile}>
+                        <Button
+                            aria-controls="simple-menu"
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                        >
+                            Menu
+                        </Button>
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={this.state.anchorEl}
+                            keepMounted
+                            open={Boolean(this.state.anchorEl)}
+                            onClose={this.handleClose}
+                        >
+                            <MenuItem onClick={this.handleClose}>
+                                {' '}
+                                {this.renderLink('dashboard')}
+                            </MenuItem>
+                            <MenuItem onClick={this.handleClose}>
+                                {' '}
+                                {this.renderLink('vaults')}
+                            </MenuItem>
+                            <MenuItem onClick={this.handleClose}>
+                                {' '}
+                                {this.renderLink('earn')}
+                            </MenuItem>
+                            <MenuItem onClick={this.handleClose}>
+                                {' '}
+                                {this.renderLink('zap')}
+                            </MenuItem>
+                            <MenuItem onClick={this.handleClose}>
+                                {' '}
+                                {this.renderLink('cover')}
+                            </MenuItem>
+                            <MenuItem onClick={this.handleClose}>
+                                {' '}
+                                {this.renderLink('stats')}
+                            </MenuItem>
+                        </Menu>
+                    </div>
           <div className={ classes.account }>
             { address &&
               <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap onClick={this.addressClicked} >
