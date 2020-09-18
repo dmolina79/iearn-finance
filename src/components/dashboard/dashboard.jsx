@@ -6,7 +6,8 @@ import {
   Typography,
   Tooltip,
   TextField,
-  MenuItem
+  MenuItem,
+  Grid
 } from '@material-ui/core';
 import { colors } from '../../theme'
 
@@ -37,7 +38,7 @@ const styles = theme => ({
     alignItems: 'center'
   },
   investedContainerLoggedOut: {
-    display: 'flex',
+   display: 'flex', 
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
@@ -253,81 +254,93 @@ class Dashboard extends Component {
     } = this.state
 
     return (
-      <div className={ classes.root }>
-        <div className={ classes.investedContainer}>
-          <div className={ classes.portfolioContainer }>
-            <div className={ classes.titleBalance } onClick={ this.balanceClicked }>
-              { currency === 'USD' && <Typography variant={ 'h2' }>$ { parseFloat(dashboard.portfolio_balance_usd.toFixed(2)).toLocaleString() }</Typography> }
-              { currency === 'ETH' &&
-                <div className={ classes.inline }>
-                  <Typography variant={ 'h2' } noWrap>{ parseFloat(dashboard.portfolio_balance_eth.toFixed(2)).toLocaleString() }</Typography >
-                  <Typography className={ classes.symbol } variant={ 'h3' }>ETH</Typography>
-                </div>
-              }
-              <Typography variant={ 'h4' } className={ classes.gray }>Portfolio Balance</Typography>
-            </div>
-            <div className={ classes.between }>
-            </div>
-            { growth === 0 &&
-              <div className={ classes.titleBalance } onClick={ this.growthClicked }>
-                { currency === 'USD' && <Typography variant={ 'h2' }>$ { parseFloat(dashboard.portfolio_growth_usd_daily.toFixed(2)).toLocaleString() }</Typography> }
-                { currency === 'ETH' &&
-                  <div className={ classes.inline }>
-                    <Typography variant={ 'h2' } noWrap>{ parseFloat(dashboard.portfolio_growth_eth_daily.toFixed(2)).toLocaleString() }</Typography >
-                    <Typography className={ classes.symbol } variant={ 'h3' }>ETH</Typography>
-                  </div>
-                }
-                <Typography variant={ 'h4' } className={ `${classes.gray} ${classes.prettyAlign}` }>
-                  Daily Growth
-                </Typography>
-              </div>
-            }
+        <div className={ classes.root }>
+            <Grid
+                    container
+                    spacing={3}
+                    style={{ textAlign: 'center', padding: 10, marginTop: 10 }}
+            >      
+                <Grid item xs={12} sm={6}>
+                    <div className={ classes.titleBalance } onClick={ this.balanceClicked }>
+                    { currency === 'USD' && <Typography variant={ 'h2' }>$ { parseFloat(dashboard.portfolio_balance_usd.toFixed(2)).toLocaleString() }</Typography> }
+                    { currency === 'ETH' &&
+                        <div className={ classes.inline }>
+                        <Typography variant={ 'h2' } noWrap>{ parseFloat(dashboard.portfolio_balance_eth.toFixed(2)).toLocaleString() }</Typography >
+                        <Typography className={ classes.symbol } variant={ 'h3' }>ETH</Typography>
+                        </div>
+                    }
+                    <Typography variant={ 'h4' } className={ classes.gray }>Portfolio Balance</Typography>
+                                    </div>
+                </Grid>
+                
+                        
+                                
+                <Grid item xs={12} sm={6}>              
+                    { growth === 0 &&
+                    <div className={ classes.titleBalance } onClick={ this.growthClicked }>
+                        { currency === 'USD' && <Typography variant={ 'h2' }>$ { parseFloat(dashboard.portfolio_growth_usd_daily.toFixed(2)).toLocaleString() }</Typography> }
+                        { currency === 'ETH' &&
+                        <div className={ classes.inline }>
+                            <Typography variant={ 'h2' } noWrap>{ parseFloat(dashboard.portfolio_growth_eth_daily.toFixed(2)).toLocaleString() }</Typography >
+                            <Typography className={ classes.symbol } variant={ 'h3' }>ETH</Typography>
+                        </div>
+                        }
+                        <Typography variant={ 'h4' } className={ `${classes.gray} ${classes.prettyAlign}` }>
+                        Daily Growth
+                        </Typography>
+                    </div>
+                    }
 
-            { growth === 1 &&
-              <div className={ classes.titleBalance } onClick={ this.growthClicked }>
-                { currency === 'USD' && <Typography variant={ 'h2' }>$ { parseFloat(dashboard.portfolio_growth_usd_weekly.toFixed(2)).toLocaleString() }</Typography> }
-                { currency === 'ETH' &&
-                  <div className={ classes.inline }>
-                    <Typography variant={ 'h2' } noWrap>{ parseFloat(dashboard.portfolio_growth_eth_weekly.toFixed(2)).toLocaleString() }</Typography >
-                    <Typography className={ classes.symbol } variant={ 'h3' }>ETH</Typography>
-                  </div>
-                }
-                <Typography variant={ 'h4' } className={ `${classes.gray} ${classes.prettyAlign}` }>
-                  Weekly Growth
-                </Typography>
-              </div>
-            }
+                    { growth === 1 &&
+                    <div className={ classes.titleBalance } onClick={ this.growthClicked }>
+                        { currency === 'USD' && <Typography variant={ 'h2' }>$ { parseFloat(dashboard.portfolio_growth_usd_weekly.toFixed(2)).toLocaleString() }</Typography> }
+                        { currency === 'ETH' &&
+                        <div className={ classes.inline }>
+                            <Typography variant={ 'h2' } noWrap>{ parseFloat(dashboard.portfolio_growth_eth_weekly.toFixed(2)).toLocaleString() }</Typography >
+                            <Typography className={ classes.symbol } variant={ 'h3' }>ETH</Typography>
+                        </div>
+                        }
+                        <Typography variant={ 'h4' } className={ `${classes.gray} ${classes.prettyAlign}` }>
+                        Weekly Growth
+                        </Typography>
+                    </div>
+                    }
 
-            { growth === 2 &&
-              <div className={ classes.titleBalance } onClick={ this.growthClicked }>
-                { currency === 'USD' && <Typography variant={ 'h2' }>$ { parseFloat(dashboard.portfolio_growth_usd_yearly.toFixed(2)).toLocaleString() }</Typography> }
-                { currency === 'ETH' &&
-                  <div className={ classes.inline }>
-                    <Typography variant={ 'h2' } noWrap>{ parseFloat(dashboard.portfolio_growth_eth_yearly.toFixed(2)).toLocaleString() }</Typography >
-                    <Typography className={ classes.symbol } variant={ 'h3' }>ETH</Typography>
-                  </div>
+                    { growth === 2 &&
+                    <div className={ classes.titleBalance } onClick={ this.growthClicked }>
+                        { currency === 'USD' && <Typography variant={ 'h2' }>$ { parseFloat(dashboard.portfolio_growth_usd_yearly.toFixed(2)).toLocaleString() }</Typography> }
+                        { currency === 'ETH' &&
+                        <div className={ classes.inline }>
+                            <Typography variant={ 'h2' } noWrap>{ parseFloat(dashboard.portfolio_growth_eth_yearly.toFixed(2)).toLocaleString() }</Typography >
+                            <Typography className={ classes.symbol } variant={ 'h3' }>ETH</Typography>
+                        </div>
+                        }
+                        <Typography variant={ 'h4' } className={ `${classes.gray} ${classes.prettyAlign}` }>
+                        Yearly Growth
+                        </Typography>
+                    </div>
+                    }
+                </Grid>
+                
+                <Grid item xs={12}>
+                { this.renderBasedOn() }
+                { (dashboard.vaults && dashboard.vaults.length > 0) &&
+                    <div className={ classes.vaultContainer }>
+                    <Typography variant={ 'h3' } className={ classes.sectionHeading }>Vaults Overview</Typography>
+                    { this.renderVaults() }
+                    </div>
                 }
-                <Typography variant={ 'h4' } className={ `${classes.gray} ${classes.prettyAlign}` }>
-                  Yearly Growth
-                </Typography>
-              </div>
-            }
-          </div>
-          { this.renderBasedOn() }
-          { (dashboard.vaults && dashboard.vaults.length > 0) &&
-            <div className={ classes.vaultContainer }>
-              <Typography variant={ 'h3' } className={ classes.sectionHeading }>Vaults Overview</Typography>
-              { this.renderVaults() }
-            </div>
-          }
-          { (dashboard.assets && dashboard.assets.length > 0) &&
-            <div className={ classes.earnContainer }>
-              <Typography variant={ 'h3' } className={ classes.sectionHeading }>Earn Overview</Typography>
-              { this.renderEarn() }
-            </div>
-          }
-        </div>
-        { loading && <Loader /> }
+                { (dashboard.assets && dashboard.assets.length > 0) &&
+                    <div className={ classes.earnContainer }>
+                    <Typography variant={ 'h3' } className={ classes.sectionHeading }>Earn Overview</Typography>
+                    { this.renderEarn() }
+                    </div>
+                            }
+                </Grid>
+                <Grid item xs={12}>
+                    {loading && <Loader />}
+                </Grid> 
+        </Grid>
       </div>
     )
   };
@@ -357,9 +370,9 @@ class Dashboard extends Component {
     ]
 
     return (
-      <div className={ classes.basedOnContainer }>
-        <InfoIcon className={ classes.infoIcon } />
-        <Typography>Growth is based on the vault's performance { basedOn === 4 ? 'since' : 'for the past' }</Typography>
+      <div >
+      
+        <Typography>   <InfoIcon className={ classes.infoIcon } />Growth is based on the vault's performance { basedOn === 4 ? 'since' : 'for the past' }</Typography>
         <TextField
           id={ 'basedOn' }
           name={ 'basedOn' }
